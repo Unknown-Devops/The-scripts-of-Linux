@@ -1,0 +1,12 @@
+[ 
+{
+    "targets": [
+      "IP:PORT"
+    ],
+    "labels": {
+      "job": "springboot-boot",
+      "application": "SERVICE_NAME",
+      "contact": "SERVICE_CONTACT"
+    }
+  }
+]

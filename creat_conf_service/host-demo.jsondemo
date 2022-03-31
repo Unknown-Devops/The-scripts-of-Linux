@@ -1,0 +1,13 @@
+[ 
+{
+    "targets": [
+      "IP:PORT"
+    ],
+    "labels": {
+	  "env": "prod",
+      "job": "host",
+      "os": "HOST_OS",
+      "contact": "HOST_CONTACT"
+    }
+  }
+]
