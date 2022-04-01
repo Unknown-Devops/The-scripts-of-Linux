@@ -4,6 +4,8 @@
 # 1、功能：自动部署，安装jar服务																																															#			
 # 2、操作方法： sh  deploy.sh   jar包名称   操作方式（clean/monitor/start/stop/restart/install）  配置文件名（prod/test/其他）							    #
 # 3、使用前提要求：创建sshusr用户，根据需要修改eurkea网关地址。jar启动时使用了监控agent，需要根据实际情况替换，或者删除这部分功能				#
+# 4、jar包放在 /data/jenkins/work/  下，每次部署更新都要将新包放在这个目录下                                                           													#
+# 5、部署脚本 deploy.sh   放在 /data/jenkins 下 																																									#
 ################################################################################################################
 
 myname=`whoami`
