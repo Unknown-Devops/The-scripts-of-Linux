@@ -140,7 +140,7 @@ function install(){
         fi
 		sudo su - root -c "chown -R sshusr:sshusr $SERVICE_DIR"
 		
-        sudo su - root -c "sed -i '/$JAR_NAME/d' /etc/crontab"
+        sudo su - root -c "sed -i "/$JAR_NAME/d" /etc/crontab"
         stop
         start
         sleep 3
