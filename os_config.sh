@@ -61,21 +61,7 @@ else
 	sed  -i "s/Defaults    requiretty/#Defaults    requiretty/g"  /etc/sudoers
 fi
 
-# 创建nlp用户
-cat /etc/passwd |grep nlp >/dev/null  2>&1
-if [ $? -eq 0 ];then
-	echo -e '\033[1;32m 已创建nlp用户 \033[0m'
-	cat /etc/sudoers |grep nlp >/dev/null  2>&1
-	if [ $? -eq 0 ];then
-		echo -e '\033[1;32m nlp用户已加入sudoers \033[0m'
-	else
-		echo "nlp ALL=(ALL)   NOPASSWD: ALL" >> /etc/sudoers  # 允许普通用户nlp sudo su root
-	fi
-else
-	useradd -m nlp
-	echo '1234nlp@2022' |passwd --stdin nlp
-	echo "nlp ALL=(ALL)   NOPASSWD: ALL" >> /etc/sudoers  # 允许普通用户nlp sudo su root
-fi
+
 
 echo -e '\033[1;32m 4.禁止root用户直连ssh \033[0m'
 cat /etc/ssh/sshd_config  |grep "#PermitRootLogin yes" >/dev/null 2>&1
@@ -99,39 +85,6 @@ systemctl stop NetworkManager
 systemctl disable NetworkManager
 systemctl restart network
 
-echo -e '\033[1;32m 7.增加kafka域名解析 \033[0m'
-cat /etc/hosts |egrep "master|slave1|yqbdp001|bigdata001" >/dev/null  2>&1
-if [ $? -eq 0 ];then
-	echo -e '\033[1;32m 大数据域名解析已添加 \033[0m'
-else
-	cat <<EOF >> /etc/hosts
-192.168.10.31 master
-192.168.10.32 slave1
-192.168.10.33 slave2
-192.168.10.34 slave3
-192.168.10.35 slave4
-192.168.10.36 slave5
-192.168.10.37 slave6
-192.168.10.38 slave7
-192.168.10.39 slave8
-192.168.10.40 slave9
-192.168.10.86 yqbdp001
-192.168.10.87 yqbdp002
-192.168.10.88 yqbdp003
-192.168.10.89 yqbdp004
-192.168.10.90 yqbdp005
-192.168.18.11 bigdata001
-192.168.18.12 bigdata002
-192.168.18.13 bigdata003
-192.168.18.14 bigdata004
-192.168.18.15 bigdata005
-192.168.18.16 bigdata006
-192.168.18.17 bigdata007
-EOF
-
-
-
-fi
 
 echo -e '\033[1;32m 8.创建jenkins变更目录 \033[0m'
 if [ ! -d "/data/jenkins" ];then
@@ -173,7 +126,7 @@ sed -i  's/server 1.centos.pool.ntp.org/#server 0.centos.pool.ntp.org/g'  /etc/n
 sed -i  's/server 2.centos.pool.ntp.org/#server 0.centos.pool.ntp.org/g'  /etc/ntp.conf
 sed -i  's/server 3.centos.pool.ntp.org/#server 0.centos.pool.ntp.org/g'  /etc/ntp.conf
 cat <<EOF >> /etc/ntp.conf
-server 192.168.10.86   # 内网时间同步服务器
+# 也可以增加一个内网时间同步服务器
 server cn.pool.ntp.org
 server ntp.aliyun.com
 EOF
